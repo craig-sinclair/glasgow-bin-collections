@@ -1,0 +1,70 @@
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bin Collection - Glasgow</title>
+        {% compress css %}
+            <link rel="stylesheet" href="{% static 'src/output.css' %}">
+            <link rel="stylesheet" href="{% static 'src/homeStyles.css' %}">    
+        {% endcompress %}    
+    </head>
+
+    <body>
+        {% include 'bins/navbar.html' %}
+
+        {% if addresses %}
+            <div class="relative overflow-x-auto">
+                <table class="w-9/12 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" id="results-table">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Address
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                City
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Postcode
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Select
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for address in addresses %}
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <form method="POST" action="{% url 'address_select' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="selected_action" value="{{ address.action }}">
+                                    <input type="hidden" name="expandable" value="{{ address.expandable }}">
+
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ address.address.0 }}  <!-- Street Address -->
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{ address.address.1 }}  <!-- City -->
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ address.address.2 }}  <!-- Postcode -->
+                                </td>
+
+                                <td class="px-6 py-4">
+                                    <button type="submit" class="text-blue-600 hover:underline">
+                                        Select
+                                    </button>
+                                </td>
+                            </form>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </body>
+</html>

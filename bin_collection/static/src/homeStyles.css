@@ -1,0 +1,39 @@
+:root, body {
+    background-color: #1b2631;
+}
+
+.form-box-div{
+    margin-top: 20%;
+}
+
+#results-table{
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 25px;
+}
+
+#results-table tr:hover {
+    cursor: pointer;
+    opacity: 80%;
+}
+
+figure.flex.flex-col.items-center.justify-center.p-6.text-center.bg-white.border.border-gray-200.rounded-lg.shadow-md.dark\:bg-gray-800.dark\:border-gray-700 {
+    padding: 15px;
+    margin: 10px;
+}
+
+.blue-header{
+    color: #2980b9;
+}
+
+.purple-header {
+    color: #8e44ad;
+}
+
+.brown-header {
+    color: #a04000;
+}
+
+.grey-header {
+    color: #aab7b8;
+}
