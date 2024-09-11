@@ -8,17 +8,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glasgow Bin Collection</title>
     {% compress css %}
-        <link rel="stylesheet" href="{% static 'src/output.css' %}">
         <link rel="stylesheet" href="{% static 'src/homeStyles.css' %}">    
+        <link rel="stylesheet" href="{% static 'src/output.css' %}">
     {% endcompress %}   
 </head>
 <body>
     {% include 'bins/navbar.html' %}
 
-    <div class="flex items-center justify-center h-screen">
-        <div class="bg-blue-500 text-white p-8">
-          <h2>About Page</h2>
-        </div>
-      </div>      
+    <div class="max-w-5xl pt-52 pb-24 mx-auto text-center">
+        <h1 class="text-3xl lh-6 ld-04 font-bold text-white mb-2">
+            About Glasgow Bin Collection Site
+        </h1>
+        <h2 class="text-2xl lh-6 ld-04 pb-11 text-gray-500">
+          This site utilises selenium along with the Python Django framework
+          <br />
+          to access bin collection dates for Glasgow City Council addresses.
+        </h2>
+    
+        <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+        View the Homepage!
+        </button>
+        
+    </div>
+    
+    
 </body>
 </html>
