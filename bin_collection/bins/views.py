@@ -4,17 +4,33 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
 from django.shortcuts import render, redirect, HttpResponse
-import logging
+from django.http import JsonResponse
+
 
 driver = None
+driver_ready = False
 
 # Singleton principle for getting/ creating driver object
 def get_driver():
-    global driver
+    global driver, driver_ready  # Declare driver_ready as global
     if driver is None:
-        logging.info("Initializing a new WebDriver instance.")
-        driver = webdriver.Chrome() # Must be ammended for non-Chrome browsers
+        try:
+            driver = webdriver.Chrome()  # Must be amended for non-Chrome browsers
+            url = 'https://onlineservices.glasgow.gov.uk/forms/RefuseAndRecyclingWebApplication/AddressSearch.aspx'
+            driver.get(url)
+
+            # Enter postcode in search input
+            postcode_input = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.ID, 'Application_Addresses_Search'))
+            )
+            
+            # Mark driver as ready
+            driver_ready = True
+
+        except Exception as e:
+            print(f"An error occurred: {e}")
     return driver
+
 
 
 def get_addresses(postcode):
@@ -149,6 +165,7 @@ def index(request):
                 return render(request, 'bins/results.html', {'addresses': addresses})
             else:
                 return render(request, 'bins/index.html', {'error_message': 'No addresses found!'})
+    driver = get_driver() # Start the chrome driver upon the page loading
 
     return render(request, 'bins/index.html')
 
@@ -168,8 +185,15 @@ def address_select(request):
         else:
             return HttpResponse("No address selected.")
 
+def check_driver_status(request):
+    global driver_ready
+    return JsonResponse({'status': 'ready' if driver_ready else 'loading'})
+
 def close_driver():
     global driver
     if driver:
         driver.quit()
         driver = None
+
+def about(request):
+    return render(request, 'bins/about.html')

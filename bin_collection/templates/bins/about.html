@@ -1,0 +1,24 @@
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glasgow Bin Collection</title>
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'src/output.css' %}">
+        <link rel="stylesheet" href="{% static 'src/homeStyles.css' %}">    
+    {% endcompress %}   
+</head>
+<body>
+    {% include 'bins/navbar.html' %}
+
+    <div class="flex items-center justify-center h-screen">
+        <div class="bg-blue-500 text-white p-8">
+          <h2>About Page</h2>
+        </div>
+      </div>      
+</body>
+</html>

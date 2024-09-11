@@ -39,7 +39,7 @@
                     <tbody>
                         {% for address in addresses %}
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <form method="POST" action="{% url 'address_select' %}">
+                                <form method="POST" action="{% url 'bins:address_select' %}">
                                     {% csrf_token %}
                                     <input type="hidden" name="selected_action" value="{{ address.action }}">
                                     <input type="hidden" name="expandable" value="{{ address.expandable }}">
